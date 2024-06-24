@@ -1,0 +1,17 @@
+{
+  "name": "data-collection",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "populate": "node -e 'require(\"./src/populate.js\").start()'"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "jest": "^29.7.0",
+    "pg": "^8.11.5"
+  }
+}
