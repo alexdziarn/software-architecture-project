@@ -28,6 +28,10 @@ def echo_input():
     except:
         print('An exception occurred')
         return "A problem occured"
-    
+
+@app.route("/health")
+def healthcheck():
+    return 'healthy'    
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True)

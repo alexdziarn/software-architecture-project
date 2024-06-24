@@ -67,4 +67,8 @@ app.get('/getStockAnalysis/:ticker', async (req, res) => {
   }
 })
 
+app.get('/health', (res, res) => {
+  res.send("healthy")
+})
+
 module.exports = { app };
