@@ -67,7 +67,7 @@ app.get('/getStockAnalysis/:ticker', async (req, res) => {
   }
 })
 
-app.get('/health', (res, res) => {
+app.get('/health', (req, res) => {
   res.send("healthy")
 })
 
