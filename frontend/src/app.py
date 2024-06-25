@@ -21,13 +21,13 @@ def echo_input():
     try:
         input_text = request.form.get("user_input", "") #shoudl be a ticker
         print("getting analysis for: " + input_text)
-        print(os.environ.get('RUNNING_IN_DOCKER', "false"))
         host = "api" if os.environ.get('RUNNING_IN_DOCKER', "false")=="true" else "localhost"
+        print("api request", "http://" + host + ":3000/getStockAnalysis/" + input_text)
         res = requests.get("http://" + host + ":3000/getStockAnalysis/" + input_text).json()
         print(res)
         return res['ticker'] + " is a " + res['analysis']
-    except:
-        print('An exception occurred')
+    except Exception as e:
+        print(e)
         return "A problem occured"
 
 @app.route("/health")

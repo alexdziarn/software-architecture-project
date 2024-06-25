@@ -1,5 +1,6 @@
 const express = require("express")
 const { Pool } = require("pg")
+var cors = require('cors')
 
 const app = express()
 
@@ -11,6 +12,7 @@ const pool = new Pool({
     port: 5432
 });
 
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -54,6 +56,8 @@ app.get('/getStockAnalysis/:ticker', async (req, res) => {
     const client = await pool.connect();
     const ticker = req.params.ticker.toUpperCase();
     const r = await client.query(`SELECT RSI from Stocks WHERE Ticker='${ticker}';`)
+    console.log(`api queried for ${ticker}`)
+    if(r.rows[0].rsi == undefined) throw Error("ticker does not exist")
     const analysis = "hold";
     const rsi = r.rows[0].rsi;
     if(rsi <= 30) analysis = "buy"
@@ -63,6 +67,7 @@ app.get('/getStockAnalysis/:ticker', async (req, res) => {
       analysis
     });
   } catch (e) {
+    console.error(e.toString())
     res.status(500).send(e.toString());
   }
 })
